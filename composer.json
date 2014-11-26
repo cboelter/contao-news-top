@@ -1,0 +1,52 @@
+{
+	"name": "cboelter/contao-news-top",
+	"description": "Contao News-Top5 rating",
+	"keywords": ["contao", "news", "rating", "top5"],
+	"type": "contao-module",
+	"homepage": "http://boelter.eu",
+	"license": "LGPL-3.0+",
+	"authors": [
+		{
+			"name": "Christopher Bölter",
+			"email": "contao@boelter.eu",
+			"homepage": "http://boelter.eu",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"email": "contao@boelter.eu",
+		"issues": "https://github.com/cboelter/contao-news-top/issues",
+		"source": "https://github.com/cboelter/contao-news-top"
+	},
+	"require": {
+		"php": ">=5.3",
+		"contao/core": ">=3.2,<4.0",
+		"contao-community-alliance/composer-plugin": "~2.0"
+	},
+	"require-dev": {
+		"cyberspectrum/contao-toolbox": "dev-master",
+		"contao-community-alliance/build-system": "~1.0",
+		"contao-community-alliance/build-system-all-tasks": "~1.0",
+		"contao-community-alliance/coding-standard": "~1.0"
+	},
+	"conflict": {
+		"contao/core": "3.0.*"
+	},
+	"autoload": {
+		"psr-0": {
+			"NewsTop": "src"
+		}
+	},
+	"extra": {
+		"contao": {
+			"sources": {
+				"contao": "system/modules/news-top5"
+			}
+		},
+		"branch-alias": {
+			"dev-master": "1.0.x-dev"
+		}
+	},
+	"prefer-stable": true,
+	"minimum-stability": "dev"
+}
