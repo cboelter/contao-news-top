@@ -25,6 +25,7 @@
 	},
 	"require-dev": {
 		"cyberspectrum/contao-toolbox": "dev-master",
+		"cboelter/contao-ccabs-custom": "~1.0",
 		"contao-community-alliance/build-system": "~1.0",
 		"contao-community-alliance/build-system-all-tasks": "~1.0",
 		"contao-community-alliance/coding-standard": "~1.0"
@@ -37,6 +38,12 @@
 			"NewsTop": "src"
 		}
 	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/cboelter/contao-ccabs-custom"
+		}
+	],
 	"extra": {
 		"contao": {
 			"sources": {
