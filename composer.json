@@ -40,7 +40,7 @@
 	"extra": {
 		"contao": {
 			"sources": {
-				"contao": "system/modules/news-top5"
+				"contao": "system/modules/news-top"
 			}
 		},
 		"branch-alias": {
