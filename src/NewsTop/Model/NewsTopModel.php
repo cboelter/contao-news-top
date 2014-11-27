@@ -63,9 +63,6 @@ class NewsTopModel extends NewsModel
                             . "AND $table.published=1";
         }
 
-        // Filter by categories
-        $arrColumns = \NewsCategories\NewsModel::filterByCategories($arrColumns);
-
         if (!isset($arrOptions['order'])) {
             $arrOptions['order'] = "$table.newstop_count DESC";
         }
@@ -75,55 +72,5 @@ class NewsTopModel extends NewsModel
 
         return static::findBy($arrColumns, null, $arrOptions);
         // @codingStandardsIgnoreEnd
-    }
-
-    /**
-     * Filter the news by categories
-     * @param array
-     * @return array
-     */
-    protected static function filterByCategories($arrColumns)
-    {
-        $t = static::$strTable;
-
-        // Use the default filter
-        if (is_array($GLOBALS['NEWS_FILTER_DEFAULT']) && !empty($GLOBALS['NEWS_FILTER_DEFAULT'])) {
-            $arrCategories = \NewsCategories\NewsModel::getCategoriesCache();
-
-            if (!empty($arrCategories)) {
-                $arrIds = array();
-
-                // Get the news IDs for particular categories
-                foreach ($GLOBALS['NEWS_FILTER_DEFAULT'] as $category) {
-                    if (isset($arrCategories[$category])) {
-                        $arrIds = array_merge($arrCategories[$category], $arrIds);
-                    }
-                }
-
-                $strKey = 'category';
-
-                // Preserve the default category
-                if ($GLOBALS['NEWS_FILTER_PRESERVE']) {
-                    $strKey = 'category_default';
-                }
-
-                $arrColumns[$strKey] = "$t.id IN (" . implode(',', (empty($arrIds) ? array(0) : array_unique($arrIds))) . ")";
-            }
-        }
-
-        // Try to find by category
-        if ($GLOBALS['NEWS_FILTER_CATEGORIES'] && \Input::get('category')) {
-            $strClass = \NewsCategories\NewsCategories::getModelClass();
-            $objCategory = $strClass::findPublishedByIdOrAlias(\Input::get('category'));
-
-            if ($objCategory === null) {
-                return null;
-            }
-
-            $arrCategories = static::getCategoriesCache();
-            $arrColumns['category'] = "$t.id IN (" . implode(',', (empty($arrCategories[$objCategory->id]) ? array(0) : $arrCategories[$objCategory->id])) . ")";
-        }
-
-        return $arrColumns;
     }
 }

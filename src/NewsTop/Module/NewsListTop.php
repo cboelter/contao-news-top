@@ -28,14 +28,6 @@ class NewsListTop extends ModuleNewsList
     protected function compile()
     {
 
-        if (!$GLOBALS['NEWS_FILTER_CATEGORIES'] && !$GLOBALS['NEWS_FILTER_DEFAULT'] &&
-            !$GLOBALS['NEWS_FILTER_PRESERVE']
-        ) {
-            $GLOBALS['NEWS_FILTER_CATEGORIES'] = $this->news_filterCategories ? true : false;
-            $GLOBALS['NEWS_FILTER_DEFAULT']    = deserialize($this->news_filterDefault, true);
-            $GLOBALS['NEWS_FILTER_PRESERVE']   = $this->news_filterPreserve;
-        }
-
         $offset                   = intval($this->skipFirst);
         $limit                    = null;
         $this->Template->articles = array();
