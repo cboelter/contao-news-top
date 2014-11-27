@@ -27,6 +27,15 @@ class NewsListTop extends ModuleNewsList
      */
     protected function compile()
     {
+
+        if (!$GLOBALS['NEWS_FILTER_CATEGORIES'] && !$GLOBALS['NEWS_FILTER_DEFAULT'] &&
+            !$GLOBALS['NEWS_FILTER_PRESERVE']
+        ) {
+            $GLOBALS['NEWS_FILTER_CATEGORIES'] = $this->news_filterCategories ? true : false;
+            $GLOBALS['NEWS_FILTER_DEFAULT']    = deserialize($this->news_filterDefault, true);
+            $GLOBALS['NEWS_FILTER_PRESERVE']   = $this->news_filterPreserve;
+        }
+
         $offset                   = intval($this->skipFirst);
         $limit                    = null;
         $this->Template->articles = array();
@@ -64,8 +73,8 @@ class NewsListTop extends ModuleNewsList
             }
 
             // Get the current page
-            $newsId   = 'page_n' . $this->id;
-            $page = \Input::get($newsId) ?: 1;
+            $newsId = 'page_n' . $this->id;
+            $page   = \Input::get($newsId) ?: 1;
 
             // Do not index or cache the page if the page number is outside the range
             if ($page < 1 || $page > max(ceil($total / $this->perPage), 1)) {

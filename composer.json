@@ -21,7 +21,8 @@
 	"require": {
 		"php": ">=5.3",
 		"contao/core": ">=3.2,<4.0",
-		"contao-community-alliance/composer-plugin": "~2.0"
+		"contao-community-alliance/composer-plugin": "~2.0",
+		"contao-legacy/news_categories": ">=2.1.2.9003,<2.2-dev"
 	},
 	"require-dev": {
 		"cyberspectrum/contao-toolbox": "dev-master",

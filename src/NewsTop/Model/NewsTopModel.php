@@ -63,6 +63,9 @@ class NewsTopModel extends NewsModel
                             . "AND $table.published=1";
         }
 
+        // Filter by categories
+        $arrColumns = \NewsCategories\NewsModel::filterByCategories($arrColumns);
+
         if (!isset($arrOptions['order'])) {
             $arrOptions['order'] = "$table.newstop_count DESC";
         }
