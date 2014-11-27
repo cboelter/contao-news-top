@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * NewsTop
+ *
+ * PHP Version 5.3
+ *
+ * @copyright  Christopher Bölter 2014
+ * @author     Christopher Bölter <github@boelter.eu>
+ * @package    contao-news-top
+ * @license    LGPL-3.0+
+ */
+
 namespace NewsTop\Model;
 
 use Contao\NewsModel;

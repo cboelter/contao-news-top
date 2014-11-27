@@ -11,8 +11,6 @@
  * @license    LGPL-3.0+
  */
 
-// Fields
-$GLOBALS['TL_DCA']['tl_news']['fields']['newstop_count'] = array
-(
-    'sql' => "int(11) NOT NULL default '0'"
-);
+// Frontend-Modules
+$GLOBALS['TL_LANG']['FMD']['newslisttop'] = array('Newsliste-Top', 'Fügt eine Newsliste sortiert nach counting in die
+Seite ein.');
