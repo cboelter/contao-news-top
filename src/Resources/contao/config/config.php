@@ -18,4 +18,4 @@ array_insert($GLOBALS['FE_MOD']['news'], count($GLOBALS['FE_MOD']['news']), arra
 ));
 
 // Hooks
-$GLOBALS['TL_HOOKS']['parseArticles'][] = array('NewsTop\Hook\ParseArticle', 'parseNewsArticle');
+$GLOBALS['TL_HOOKS']['parseArticles'][] = [\NewsTop\Hook\ParseArticle::class, 'parseNewsArticle'];
