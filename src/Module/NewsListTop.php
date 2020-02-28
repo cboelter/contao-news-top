@@ -3,31 +3,34 @@
 /**
  * NewsTop
  *
- * PHP Version 5.3
- *
- * @copyright  Christopher Bölter 2014
- * @author     Christopher Bölter <github@boelter.eu>
- * @package    contao-news-top
- * @license    LGPL-3.0+
+ * @package   contao-news-top
+ * @author    Christopher Boelter <christopher@boelter.eu>
+ * @author    David Molineus <david.molineus@netzmacht.de>
+ * @copyright 2014-2020 Christopher Bölter
+ * @license   LGPL-3.0-or-later https://github.com/cboelter/contao-news-top/blob/master/LICENSE
  */
 
 namespace NewsTop\Module;
 
 use Contao\ModuleNewsList;
+use Contao\Pagination;
 use NewsTop\Model\NewsTopModel;
 
+/**
+ * Class NewsListTop
+ */
 class NewsListTop extends ModuleNewsList
 {
-
     /**
+     * {@inheritDoc}
+     *
      * @SuppressWarnings(PHPMD.Superglobals)
      * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
-    protected function compile()
+    protected function compile(): void
     {
-
         $offset                   = intval($this->skipFirst);
         $limit                    = null;
         $this->Template->articles = array();
@@ -38,9 +41,9 @@ class NewsListTop extends ModuleNewsList
         }
 
         // Handle featured news
-        if ($this->news_featured == 'featured') {
+        if ($this->news_featured === 'featured') {
             $blnFeatured = true;
-        } elseif ($this->news_featured == 'unfeatured') {
+        } elseif ($this->news_featured === 'unfeatured') {
             $blnFeatured = false;
         } else {
             $blnFeatured = null;
@@ -55,7 +58,7 @@ class NewsListTop extends ModuleNewsList
             return;
         }
 
-        $total = $intTotal - $offset;
+        $total = ($intTotal - $offset);
 
         // Split the results
         if ($this->perPage > 0 && (!isset($limit) || $this->numberOfItems > $this->perPage)) {
@@ -70,7 +73,7 @@ class NewsListTop extends ModuleNewsList
 
             // Do not index or cache the page if the page number is outside the range
             if ($page < 1 || $page > max(ceil($total / $this->perPage), 1)) {
-                global $objPage;
+                $objPage           = $GLOBALS['objPage'];
                 $objPage->noSearch = 1;
                 $objPage->cache    = 0;
 
@@ -80,27 +83,37 @@ class NewsListTop extends ModuleNewsList
             }
 
             // Set limit and offset
-            $limit = $this->perPage;
-            $offset += (max($page, 1) - 1) * $this->perPage;
-            $skip = intval($this->skipFirst);
+            $limit   = $this->perPage;
+            $offset += ((max($page, 1) - 1) * $this->perPage);
+            $skip    = intval($this->skipFirst);
 
             // Overall limit
-            if ($offset + $limit > $total + $skip) {
-                $limit = $total + $skip - $offset;
+            if (($offset + $limit) > ($total + $skip)) {
+                $limit = ($total + $skip - $offset);
             }
 
             // Add the pagination menu
-            $objPagination              = new \Pagination($total, $this->perPage, $GLOBALS['TL_CONFIG']['maxPaginationLinks'], $newsId);
+            $objPagination = new Pagination(
+                $total,
+                $this->perPage,
+                $GLOBALS['TL_CONFIG']['maxPaginationLinks'],
+                $newsId
+            );
+
             $this->Template->pagination = $objPagination->generate("\n  ");
         }
 
         // Get the items
         if (isset($limit)) {
-            $objArticles = NewsTopModel::findPublishedByPids($this->news_archives, $blnFeatured, $limit, $offset,
-                array('order'));
+            $objArticles = NewsTopModel::findPublishedByPids(
+                $this->news_archives,
+                $blnFeatured,
+                $limit,
+                $offset,
+                ['order']
+            );
         } else {
-            $objArticles = NewsTopModel::findPublishedByPids($this->news_archives, $blnFeatured, 0, $offset,
-                array('order'));
+            $objArticles = NewsTopModel::findPublishedByPids($this->news_archives, $blnFeatured, 0, $offset, ['order']);
         }
 
         // No items found

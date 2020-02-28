@@ -1,4 +1,4 @@
-contao-news-top5
-================
+contao-news-top
+===============
 
 List Top5 news based on a simple counter
