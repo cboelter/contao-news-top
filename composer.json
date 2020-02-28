@@ -2,9 +2,9 @@
 	"name": "cboelter/contao-news-top",
 	"description": "Contao News-Top5 rating",
 	"keywords": ["contao", "news", "rating", "top5"],
-	"type": "contao-bundle",
+	"type": "contao-module",
 	"homepage": "http://boelter.eu",
-	"license": "LGPL-3.0-or-later",
+	"license": "LGPL-3.0+",
 	"authors": [
 		{
 			"name": "Christopher Bölter",
@@ -19,27 +19,42 @@
 		"source": "https://github.com/cboelter/contao-news-top"
 	},
 	"require": {
-		"php": "^7.1",
-		"contao/core-bundle": "^4.4",
-		"codefog/contao-news_categories": "^3.0"
+		"php": ">=5.3",
+		"contao/core": ">=3.2,<4.0",
+		"contao-community-alliance/composer-plugin": "~2.0",
+		"contao-legacy/news_categories": ">=2.1.2.9003,<2.2-dev"
 	},
 	"require-dev": {
-		"contao/manager-plugin": "^2.0",
-		"phpcq/all-tasks": "^1.2"
+		"cyberspectrum/contao-toolbox": "dev-master",
+		"cboelter/contao-ccabs-custom": "~1.0",
+		"contao-community-alliance/build-system": "~1.0",
+		"contao-community-alliance/build-system-all-tasks": "~1.0",
+		"contao-community-alliance/coding-standard": "~1.0"
 	},
 	"conflict": {
-		"contao/manager-plugin": "<2.0 || >= 3.0"
+		"contao/core": "3.0.*"
 	},
 	"autoload": {
-		"psr-4": {
-			"NewsTop\\": "src/"
+		"psr-0": {
+			"NewsTop": "src"
 		}
 	},
-	"extra": {
-		"contao-manager-plugin": "NewsTop\\ContaoManager\\Plugin",
-		"branch-alias": {
-			"dev-master": "1.0.x-dev",
-			"dev-develop": "2.0.x-dev"
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/cboelter/contao-ccabs-custom"
 		}
-	}
+	],
+	"extra": {
+		"contao": {
+			"sources": {
+				"contao": "system/modules/news-top"
+			}
+		},
+		"branch-alias": {
+			"dev-master": "1.0.x-dev"
+		}
+	},
+	"prefer-stable": true,
+	"minimum-stability": "dev"
 }
